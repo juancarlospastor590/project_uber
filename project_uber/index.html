@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+label {
+	display: inline-block;
+	width: 70px;
+}
+
+body {
+	background-color: black;
+}
+
+h1 {
+	text-align: center;
+	font-family: sans-serif;
+	font-size: 25px;
+	color: #F5F5DC;
+	text-decoration: underline overline
+}
+
+label {
+	font-family: sans-serif;
+	font-size: 15px;
+	color: #AFEEEE;
+}
+
+p {
+	font-family: sans-serif;
+	font-size: 15px;
+	color: #AFEEEE;
+}
+</style>
+<meta charset="utf-8">
+<title>Insert title here</title>
+
+</head>
+<body>
+	<h1>INGRESOS DE VIAJE</h1>
+	<label>Origen:</label>
+	<input id="origen" type="text">
+	<br>
+	<br>
+	<label>Destino:</label>
+	<input id="destino" type="text">
+	<br>
+	<br>
+	<label>Km:</label>
+	<input id="km" type="number">
+	<br>
+	<br>
+	<label>Tiempo:</label>
+	<input id="tiempo" type="number">
+	<br>
+	<br>
+	<button>ok</button>
+	<p id="precio_viaje"></p>
+	<p id="viajes"></p>
+	<p id="cantidad_viajes"></p>
+	<script type="text/javascript">
+		/*Calcular el valor del viaje*/
+		const btn_click = document.querySelector("button");
+		const tarifa_base = 20;
+		let valor_km = 6.50;
+		const valor_minuto = 2.40;
+		const cuota_solicitud = 0.035;/*3,5%*/
+		var precios_viajes = [];
+
+		btn_click.onclick = function() {
+
+			let txt_km = document.querySelector("#km").value;
+			let txt_tiempo = document.querySelector("#tiempo").value;
+			
+			if(txt_km<30){
+			let calculo_auxiliar = tarifa_base + (valor_km * txt_km) + (valor_minuto * txt_tiempo);
+			let costo_viaje = (cuota_solicitud * calculo_auxiliar) + calculo_auxiliar;
+			document.querySelector("#precio_viaje").innerHTML = "Costo del viaje:" + costo_viaje;
+			precios_viajes.push(costo_viaje);
+			document.querySelector("#viajes").innerHTML = "Listado de viajes:" + precios_viajes.toString();
+			document.querySelector("#cantidad_viajes").innerHTML = "Cantidad de viajes:" + precios_viajes.length;
+			/*Length: cantidad de elementos que tiene un Arraig. Los arreglos tienen sus propios valores y sus propias funciones. El arreglo tiene paréntesis y, el valor, no lleva paréntesis*/
+			}
+			else{
+				/*Recargo de 5,50 por km*/
+				valor_km=12;/*Reasignación del valor de la variable*/
+				let calculo_auxiliar = tarifa_base + (valor_km * txt_km) + (valor_minuto * txt_tiempo);
+				let costo_viaje = (cuota_solicitud * calculo_auxiliar) + calculo_auxiliar;
+				document.querySelector("#precio_viaje").innerHTML = "Costo del viaje:" + costo_viaje;
+				precios_viajes.push(costo_viaje);
+				document.querySelector("#viajes").innerHTML = "Listado de viajes:" + precios_viajes.toString();
+				document.querySelector("#cantidad_viajes").innerHTML = "Cantidad de viajes:" + precios_viajes.length;
+			}
+			}
+	</script>
+</body>
+</html>
